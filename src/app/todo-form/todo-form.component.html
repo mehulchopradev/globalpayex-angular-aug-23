@@ -1,0 +1,4 @@
+<div>
+    <input type="text" name="newTodo" placeholder="enter what you plan to do" class="t-new-todo" [(ngModel)]="newTodo">
+    <button [disabled]="!newTodo" class="t-save" (click)="onSave()">Save</button>
+</div>

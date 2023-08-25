@@ -1,0 +1,12 @@
+<div>
+    <h2>Name generator</h2>
+    <p>
+        <input type="text" class="t-firstName" name="firstName" placeholder="enter first name" [(ngModel)]="firstName">
+    </p>
+    <p>
+        <input type="text" class="t-lastName" name="lastName" placeholder="enter last name" [(ngModel)]="lastName">
+    </p>
+    <p class="t-fullName-area" *ngIf="firstName || lastName">
+        Full name: <span class="t-fullName">{{firstName + " " + lastName}}</span>
+    </p>
+</div>
