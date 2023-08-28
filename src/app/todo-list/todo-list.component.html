@@ -1,0 +1,26 @@
+<div>
+    <div class="t-todos-area" *ngIf="todos.length; else noTasks">
+        <table>
+            <tbody>
+                <tr *ngFor="let todo of todos">
+                    <td>
+                        <input type="checkbox"/>
+                    </td>
+                    <td>
+                        <span class="t-title">{{todo.title}}</span>
+                        <span class="t-createdDate">({{todo.createdDate | date: 'dd-MM-yyyy'}})</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button>Finish completed todos</button>
+            <span>(0)</span>
+        </div>
+    </div>
+    <ng-template #noTasks>
+        <div class="t-notodos-area">
+            <h2>No tasks scheduled yet!</h2>
+        </div>
+    </ng-template>
+</div>

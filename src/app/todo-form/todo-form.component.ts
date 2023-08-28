@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-form',
@@ -8,8 +8,14 @@ import { Component } from '@angular/core';
 export class TodoFormComponent {
   newTodo = '';
 
+  @Output()
+  onAddNewTodo = new EventEmitter<string>();
+
   onSave() {
-    // Save somewhere!
+    // send the newTodo as an Event outside (output) to the parent component
+    this.onAddNewTodo.emit(this.newTodo);
+
+    // reset the GUI state
     this.newTodo = '';
   }
 }

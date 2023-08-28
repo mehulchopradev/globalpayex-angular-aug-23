@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { NameGeneratorComponent } from './name-generator/name-generator.component';
 import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { CapitalizePipe } from './capitalize.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NameGeneratorComponent,
-    TodoFormComponent
+    TodoFormComponent,
+    TodoListComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

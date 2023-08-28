@@ -54,7 +54,10 @@ describe('TodoFormComponent', () => {
     expect(saveBtn.disabled).toBeTrue();
   }));
 
-  it('should reset the GUI to original state when saving todo', fakeAsync(() => {
+  it('should reset the GUI to original state and send output event with newTodo, when saving todo', fakeAsync(() => {
+    let actualNewTodo: string = '';
+    component.onAddNewTodo.subscribe((newTodo: string) => actualNewTodo = newTodo);
+
     newTodoField.value = 'todo 1';
     newTodoField.dispatchEvent(new Event('input'));
 
@@ -65,6 +68,9 @@ describe('TodoFormComponent', () => {
 
     fixture.detectChanges();
     tick();
+
+    // expecting for the newTodo to be emitted out
+    expect(actualNewTodo).toBe('todo 1');
 
     expect(newTodoField.value).toBe('');
     expect(saveBtn.disabled).toBeTrue();
