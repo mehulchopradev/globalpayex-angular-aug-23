@@ -4,18 +4,24 @@
             <tbody>
                 <tr *ngFor="let todo of todos">
                     <td>
-                        <input type="checkbox"/>
+                        <input class="t-checkboxes" type="checkbox" [(ngModel)]="todo.isDone"/>
                     </td>
                     <td>
-                        <span class="t-title">{{todo.title}}</span>
+                        <span class="t-title">{{todo.title | capitalize}}</span>
                         <span class="t-createdDate">({{todo.createdDate | date: 'dd-MM-yyyy'}})</span>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div>
-            <button>Finish completed todos</button>
-            <span>(0)</span>
+            <button
+                [disabled]="markedForCompletionTodosCount == 0"
+                class="t-finishbtn"
+                (click)="onFinishTodos();"
+            >
+                Finish completed todos
+            </button>
+            <span class="t-count">({{markedForCompletionTodosCount}})</span>
         </div>
     </div>
     <ng-template #noTasks>
