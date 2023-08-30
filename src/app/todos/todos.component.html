@@ -1,0 +1,8 @@
+<p>Task management application</p>
+<app-todo-form
+    (onAddNewTodo)="onAddNewTodo($event)"
+/>
+<app-todo-list
+    [todos]="todos"
+    [newTodo]="newTodo"
+/>

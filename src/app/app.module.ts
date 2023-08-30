@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { CapitalizePipe } from './capitalize.pipe';
+import { TodosComponent } from './todos/todos.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CapitalizePipe } from './capitalize.pipe';
     NameGeneratorComponent,
     TodoFormComponent,
     TodoListComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    TodosComponent
   ],
   imports: [
     BrowserModule,

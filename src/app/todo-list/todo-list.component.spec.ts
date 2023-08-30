@@ -4,6 +4,7 @@ import { TodoListComponent } from './todo-list.component';
 import Todo from '../types/todo';
 import { CapitalizePipe } from '../capitalize.pipe';
 import { FormsModule } from '@angular/forms';
+import { SimpleChange } from '@angular/core';
 
 const selectors = {
   title: '.t-title',
@@ -137,4 +138,23 @@ describe('TodoListComponent', () => {
     expect(titles.length).toBe(0);
     expect(createdDates.length).toBe(0);
   }));
+
+  it('appends the newly added todo to the todos list', () => {
+    component.newTodo = {
+      id: 3,
+      title: 'todo 3',
+      isDone: false,
+      createdDate: new Date('2023-08-29')
+    };
+    // we need to manually call ngOnChanges only in tests
+    component.ngOnChanges({
+      newTodo: new SimpleChange(null, component.newTodo, true),
+    });
+    fixture.detectChanges();
+
+    titles = todoListComponent.querySelectorAll(selectors.title);
+    createdDates = todoListComponent.querySelectorAll(selectors.createdDate);
+    expect(titles.length).toBe(3);
+    expect(createdDates.length).toBe(3);
+  });
 });
