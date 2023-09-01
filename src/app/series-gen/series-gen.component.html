@@ -1,0 +1,21 @@
+<div>
+    <h2>Series generator</h2>
+    <p>
+        <input type="text" placeholder="Enter n" [(ngModel)]="n">
+    </p>
+    <p>
+        Series type:
+        <select [(ngModel)]="seriesType">
+            <option value="1">Fibo series</option>
+            <option value="2">Even series</option>
+        </select>
+    </p>
+    <p>
+        <button (click)="onGenerate();">Generate</button>
+    </p>
+    <p>
+        Series: <span>{{seriesResult}}</span>
+        Addition: <span>{{addition}}</span>
+        Addition of squares: <span>{{additionOfSquares}}</span>
+    </p>
+</div>

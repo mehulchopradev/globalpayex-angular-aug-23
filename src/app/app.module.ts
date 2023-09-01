@@ -9,6 +9,7 @@ import { TodoFormComponent } from './todo-form/todo-form.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { CapitalizePipe } from './capitalize.pipe';
 import { TodosComponent } from './todos/todos.component';
+import { SeriesGenComponent } from './series-gen/series-gen.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TodosComponent } from './todos/todos.component';
     TodoFormComponent,
     TodoListComponent,
     CapitalizePipe,
-    TodosComponent
+    TodosComponent,
+    SeriesGenComponent
   ],
   imports: [
     BrowserModule,
