@@ -1,21 +1,21 @@
 <div>
     <h2>Series generator</h2>
     <p>
-        <input type="text" placeholder="Enter n" [(ngModel)]="n">
+        <input type="text" placeholder="Enter n" [(ngModel)]="n" class="t-n-textfield">
     </p>
     <p>
         Series type:
-        <select [(ngModel)]="seriesType">
+        <select [(ngModel)]="seriesType" class="t-seriestype-dropdown">
             <option value="1">Fibo series</option>
             <option value="2">Even series</option>
         </select>
     </p>
     <p>
-        <button (click)="onGenerate();">Generate</button>
+        <button (click)="onGenerate();" class="t-generate-btn">Generate</button>
     </p>
     <p>
-        Series: <span>{{seriesResult}}</span>
-        Addition: <span>{{addition}}</span>
-        Addition of squares: <span>{{additionOfSquares}}</span>
+        Series: <span class="t-seriesresult-span">{{seriesResult}}</span>
+        Addition: <span class="t-addition-span">{{addition}}</span>
+        Addition of squares: <span class="t-additionsquares-span">{{additionOfSquares}}</span>
     </p>
 </div>
