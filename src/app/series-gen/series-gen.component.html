@@ -1,5 +1,8 @@
 <div>
     <h2>Series generator</h2>
+    <p *ngIf="errorMsg" style="color: red;" class="t-error">
+        {{errorMsg}}
+    </p>
     <p>
         <input type="text" placeholder="Enter n" [(ngModel)]="n" class="t-n-textfield">
     </p>

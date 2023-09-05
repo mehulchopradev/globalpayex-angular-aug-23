@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SeriesService } from '../series.service';
 import { ApiService } from '../api.service';
 import { Series } from '../types/series';
+import { catchError, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-series-gen',
@@ -14,11 +16,19 @@ export class SeriesGenComponent implements OnInit {
   seriesResult: string | null = null;
   addition: number | null = null;
   additionOfSquares: number | null = null;
+  errorMsg: string | null = null;
 
   constructor(public seriesService: SeriesService, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getDefaultSeriesData()
+      .pipe(
+        catchError((err: HttpErrorResponse, caught: any) => {
+          console.log(err.message);
+          this.errorMsg = 'Error in fetching default series data';
+          return of();
+        })
+      )
       .subscribe((series: Series) => {
         const { n, fiboSeries } = series;
         this.n = n + '';

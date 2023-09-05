@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { SeriesGenComponent } from './series-gen.component';
 import { FormsModule } from '@angular/forms';
 import { SeriesService } from '../series.service';
+import { Series } from '../types/series';
+import { of, throwError } from 'rxjs';
+import { ApiService } from '../api.service';
 
 const selectors = {
   nTextField: '.t-n-textfield',
@@ -11,6 +14,7 @@ const selectors = {
   seriesResultSpan: '.t-seriesresult-span',
   additionSpan: '.t-addition-span',
   additionSquaresSpan: '.t-additionsquares-span',
+  error: '.t-error',
 };
 
 describe('SeriesGenComponent', () => {
@@ -25,8 +29,10 @@ describe('SeriesGenComponent', () => {
   let additionSquaresSpanElement: HTMLSpanElement;
   let seriesServiceStub: Partial<SeriesService>;
   let seriesService: SeriesService;
+  let apiServiceStub;
+  let getDefaultSeriesDataStub;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     seriesServiceStub = {
       fibo(n) {
         if (n === 7) {
@@ -41,18 +47,26 @@ describe('SeriesGenComponent', () => {
         return [0,2,4,6];
       }
     };
+    const seriesData: Series = {
+      n: 7,
+      fiboSeries: '0,1,1,2,3,5,8',
+      evenSeries: '0,2,4,6'
+    };
+    apiServiceStub = jasmine.createSpyObj('ApiService', ['getDefaultSeriesData']);
+    getDefaultSeriesDataStub = apiServiceStub.getDefaultSeriesData.and.returnValue(of(seriesData));
+
     TestBed.configureTestingModule({
       declarations: [SeriesGenComponent],
       imports: [
         FormsModule,
       ],
       providers: [
-        { provide: SeriesService, useValue: seriesServiceStub }
+        { provide: SeriesService, useValue: seriesServiceStub },
+        { provide: ApiService, useValue: apiServiceStub }
       ]
     });
     fixture = TestBed.createComponent(SeriesGenComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
 
     seriesGenNativeElement = fixture.nativeElement;
     nInputElement = seriesGenNativeElement.querySelector(selectors.nTextField)!;
@@ -65,6 +79,7 @@ describe('SeriesGenComponent', () => {
   });
 
   it('should generate the series along with the addition and addition of squares of the series', fakeAsync(() => {
+    fixture.detectChanges();
     nInputElement.value = '7';
     nInputElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -86,6 +101,7 @@ describe('SeriesGenComponent', () => {
 
   it('should generate the series along wiht the addition and addition of squares for boundary value of n = 2', fakeAsync(() => {
     // seriesService.fibo = (n) => [0,1];
+    fixture.detectChanges();
 
     nInputElement.value = '2';
     nInputElement.dispatchEvent(new Event('input'));
@@ -104,5 +120,26 @@ describe('SeriesGenComponent', () => {
     expect(seriesResultSpanElement.textContent?.trim()).toBe('0,1');
     expect(additionSpanElement.textContent?.trim()).toBe('1');
     expect(additionSquaresSpanElement.textContent?.trim()).toBe('1');
+  }));
+
+  it('should display default series data on load', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    expect(nInputElement.value).toBe('7');
+    expect(seriesTypeSelectElement.value).toBe('1');
+    expect(seriesResultSpanElement.textContent?.trim()).toBe('0,1,1,2,3,5,8');
+  }));
+
+  it('displays error msg when unable to fetch default series data on load', fakeAsync(() => {
+    let errorElement: HTMLElement | null = seriesGenNativeElement.querySelector(selectors.error);
+    expect(errorElement).toBeNull();
+
+    // stubbing for an error in getDefaultSeriesData()
+    getDefaultSeriesDataStub!.and.returnValue(throwError(() => new Error('Error in fetching data')));
+    fixture.detectChanges();
+
+    errorElement = seriesGenNativeElement.querySelector(selectors.error);
+    expect(errorElement).not.toBeNull();
+    expect(errorElement?.textContent?.trim()).toBe('Error in fetching default series data');
   }));
 });
