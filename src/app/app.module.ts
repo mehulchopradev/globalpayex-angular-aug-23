@@ -11,6 +11,8 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { CapitalizePipe } from './capitalize.pipe';
 import { TodosComponent } from './todos/todos.component';
 import { SeriesGenComponent } from './series-gen/series-gen.component';
+import { SeriesDescComponent } from './series-desc/series-desc.component';
+import { CaseDirective } from './case.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { SeriesGenComponent } from './series-gen/series-gen.component';
     TodoListComponent,
     CapitalizePipe,
     TodosComponent,
-    SeriesGenComponent
+    SeriesGenComponent,
+    SeriesDescComponent,
+    CaseDirective
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { SeriesService } from '../series.service';
 import { Series } from '../types/series';
 import { of, throwError } from 'rxjs';
 import { ApiService } from '../api.service';
+import { Component } from '@angular/core';
 
 const selectors = {
   nTextField: '.t-n-textfield',
@@ -16,6 +17,9 @@ const selectors = {
   additionSquaresSpan: '.t-additionsquares-span',
   error: '.t-error',
 };
+
+@Component({ selector: 'app-series-desc', template: ''})
+class SeriesDescComponentMock {}
 
 describe('SeriesGenComponent', () => {
   let component: SeriesGenComponent;
@@ -56,7 +60,7 @@ describe('SeriesGenComponent', () => {
     getDefaultSeriesDataStub = apiServiceStub.getDefaultSeriesData.and.returnValue(of(seriesData));
 
     TestBed.configureTestingModule({
-      declarations: [SeriesGenComponent],
+      declarations: [SeriesGenComponent, SeriesDescComponentMock],
       imports: [
         FormsModule,
       ],

@@ -15,3 +15,8 @@ Addition of squares result: 345
   Note:
   1 About the fibo series: The fibo series is a mathemtical series where the next number is the addition of the previous two numbers and so on
   2. About the even series: The even series is a mathematical series where the series starts from 0 and the next numbers are alternate numbers and so on
+
+`case` directive  
+<span case="upper">mehul chopra</span>
+<span case>mehul chopra</span>
+<span [case]="someprop">mehul chopra</span>
